@@ -12,4 +12,7 @@ host: https://dashboard.render.com/
 
 ![image](https://github.com/user-attachments/assets/da2c9ba7-0ec0-48e9-956a-89c8e9961979)
 
-![Uploading telegram_bot2.gif…]()
+
+![telegram_bot2](https://github.com/user-attachments/assets/b55cd69c-8eb7-4016-9184-69fa926c83e7)
+
+
