@@ -368,17 +368,16 @@ async def log_food(update: Update, context: CallbackContext) -> None:
         if context.args:
             meal = ' '.join(context.args)
             response = get_food_info(translate_text(meal))
+            food_name = translate_text(response['name'].capitalize(), src_language="en", dest_language="ru")
             if 'calories' in response:
                 if response['calories'] > 0:
                     context.user_data['step'] = 'log_food'
                     context.user_data['calories'] = response['calories']
                     logger.info(
-                        f"user {user_id} " + f"🍎 {translate_text(response['name'].capitalize(), src_language="en", 
-                                                                 dest_language="ru")} содержит "
+                        f"user {user_id} " + f"🍎 {food_name} содержит "
                                              f"{response['calories']} ккал на 100 г. Сколько грамм(мл) вы съели?")
                     await update.message.reply_text(
-                        f"🍎 {translate_text(response['name'].capitalize(), src_language="en", 
-                                            dest_language="ru")} содержит {response['calories']} ккал на 100 г. "
+                        f"🍎 {food_name} содержит {response['calories']} ккал на 100 г. "
                         f"Сколько грамм(мл) вы съели?", reply_markup=ReplyKeyboardRemove()
                    )
                 else:
