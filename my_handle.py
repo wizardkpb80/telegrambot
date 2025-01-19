@@ -68,7 +68,7 @@ async def handle_message(update: Update, context: CallbackContext) -> None:
             logged_calories = int(text)
             user_data = users.get(user_id)
             logged_calories = logged_calories * context.user_data.get('calories') / 100
-            logged_calories = logged_calories + user_data.get('logged_calories')
+            logged_calories = round(logged_calories + user_data.get('logged_calories'),0)
             users.update(user_id, logged_calories=logged_calories, db_update=1)
             remaining_food = user_data.get('calorie_goal') - user_data.get('logged_calories')
 

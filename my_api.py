@@ -7,8 +7,12 @@ import aiohttp
 import requests
 import random
 from logging_config import logger
+import os
+from dotenv import load_dotenv
 
-API_KEY_WEATHER = "9d23a146cb4a5b56900953777a1fb758"
+load_dotenv()
+
+API_KEY_WEATHER = os.getenv("API_KEY_WEATHER")
 API_BASE_FOOD = "https://world.openfoodfacts.org/api/v0/product/"
 
 async def get_weather(city: str) -> float:
@@ -48,12 +52,12 @@ def get_food_info(product_name):
         dict: A dictionary containing the product's name and calorie information
     """
     api_url = "https://trackapi.nutritionix.com/v2/natural/nutrients"
-    app_id = "75f0c9f7"  # Replace with your Nutritionix App ID
-    app_key = "a65eba23e5ec71c31c96c87c1835b4af"  # Replace with your Nutritionix App Key
+    food_app_id = os.getenv("FOOD_APP_ID")  # Replace with your Nutritionix App ID
+    food_app_key = os.getenv("FOOD_APP_KEY")  # Replace with your Nutritionix App Key
 
     headers = {
-        "x-app-id": app_id,
-        "x-app-key": app_key,
+        "x-app-id": food_app_id,
+        "x-app-key": food_app_key,
         "Content-Type": "application/json"
     }
 
@@ -84,16 +88,16 @@ def get_random_10_foods():
     Returns:
         list: A list of up to 3 low-calorie foods with their calorie information.
     """
-    app_id = 'd8acac44'
-    app_key = 'cb104b3fb3684a250aab4992947d4bba'
+    foodlist_app_id = os.getenv("FOODLIST_APP_ID")
+    foodlist_app_key = os.getenv("FOODLIST_APP_KEY")
 
-    food_query = 'apple'  # Change this to any food item you're interested in
+    food_calories = '0-100'  # Change this to any food item you're interested in
 
     url = f'https://api.edamam.com/api/food-database/v2/parser'
     params = {
-        'app_id': app_id,
-        'app_key': app_key,
-        'ingr': food_query
+        'app_id': foodlist_app_id,
+        'app_key': foodlist_app_key,
+        'calories': food_calories
     }
 
     response = requests.get(url, params=params)

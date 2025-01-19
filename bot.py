@@ -5,6 +5,8 @@ from users import users
 import threading
 import time
 import asyncio
+import os
+from dotenv import load_dotenv
 import warnings
 from my_handle import (handle_message, set_profile, start, handle_confirmation, restart_day,
                        log_water, log_food, log_workout, workout_type_selected, check_progress,
@@ -12,7 +14,8 @@ from my_handle import (handle_message, set_profile, start, handle_confirmation, 
 
 # Suppress the specific DeprecationWarning
 warnings.filterwarnings("ignore", category=DeprecationWarning)
-
+load_dotenv()
+TOKEN = os.getenv("BOT_TOKEN")
 # Function to periodically clean up inactive users
 def cleanup_inactive_users():
     while True:
@@ -48,7 +51,7 @@ def main() -> None:
 
 async def update_commands():
     # Create the Application instance with your bot's token
-    application = Application.builder().token("8077089507:AAHQSG81zdy-JOmdto6m2ve9aeuwZMgw5iU").read_timeout(30).write_timeout(30).build()
+    application = Application.builder().token(TOKEN).read_timeout(30).write_timeout(30).build()
     # Define the commands to be added (only once)
     await application.bot.set_my_commands([
         BotCommand("start", "Запустить бота"),
