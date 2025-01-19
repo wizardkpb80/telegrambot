@@ -96,7 +96,7 @@ async def handle_message(update: Update, context: CallbackContext) -> None:
             users.update(user_id, logged_water=logged_water, db_update=1)
             remaining_water = user_data.get('water_goal') - user_data.get('logged_water')
             logger.info(
-                f"user {user_id} " + f"Вы выпили {logged_water} мл воды. Осталось: {max(remaining_water, 0)} мл до цели." + recomend_food)
+                f"user {user_id} " + f"Вы выпили {logged_water} мл воды. Осталось: {max(remaining_water, 0)} мл до цели.")
             await update.message.reply_text(
                 f"Вы выпили {logged_water} мл воды. Осталось: {max(remaining_water, 0)} мл до цели.", reply_markup=ReplyKeyboardRemove()
             )
@@ -281,8 +281,7 @@ async def set_profile(update: Update, context: CallbackContext) -> None:
 
 # Команда /start
 async def start(update: Update, context: CallbackContext) -> None:
-    logger.info(
-        f"user {user_id} " + f"start")
+    logger.info(f"start")
     await update.message.reply_text(
         "Привет! Я ваш помощник по расчету нормы воды, калорий и трекингу активности. "
         "Используйте команду /set_profile для настройки профиля.", reply_markup=ReplyKeyboardRemove()
